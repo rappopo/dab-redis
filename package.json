@@ -1,0 +1,30 @@
+{
+  "name": "@rappopo/dab-redis",
+  "version": "0.0.1",
+  "description": "A Redis data access layer that is bloated!",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "keywords": [
+    "dab",
+    "dab-redis",
+    "redis",
+    "data",
+    "access",
+    "dal"
+  ],
+  "author": "Ardhi Lukianto <ardhi@lukianto.com>",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.0",
+    "redis": "^2.8.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-subset": "^1.6.0",
+    "lodash": "^4.17.4"
+  }
+}
