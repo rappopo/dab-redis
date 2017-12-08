@@ -1,7 +1,6 @@
 'use strict'
 
 const redis = require('redis'),
-  uuid = require('uuid/v4'),
   async = require('async'),
   Dab = require('@rappopo/dab')
 
@@ -15,7 +14,7 @@ class DabRedis extends Dab {
       idSrc: '_id',
       idDest: options.idDest || options.idSrc || '_id',
       url: options.url || 'redis://localhost:6379',
-      type: options.type || 'test'
+      ns: options.ns || 'doc'
     }))
   }
 
@@ -59,7 +58,7 @@ class DabRedis extends Dab {
   }
 
   _findOne (id, params, callback) {
-    const key = (params.type || this.options.type) + ':' + id
+    const key = (params.ns || this.options.ns) + ':' + id
     this.client.hgetall(key, (err, result) => {
       if (err)
         return callback(err)
@@ -92,8 +91,8 @@ class DabRedis extends Dab {
     [params, body] = this.sanitize(params, body)
     this.setClient(params)
     return new Promise((resolve, reject) => {
-      const id = body[this.options.idDest] ? body[this.options.idDest] : uuid(),
-        key = (params.type || this.options.type) + ':' + id
+      const id = body[this.options.idDest] ? body[this.options.idDest] : this.uuid(),
+        key = (params.ns || this.options.ns) + ':' + id
       this._findOne(id, params, result => {
         if (result.success && !params.upsert)
           return reject(new Error('Exists'))
@@ -117,7 +116,7 @@ class DabRedis extends Dab {
     this.setClient(params)
     body = this._.omit(body, [this.options.idDest])
     return new Promise((resolve, reject) => {
-      const key = (params.type || this.options.type) + ':' + id
+      const key = (params.ns || this.options.ns) + ':' + id
       this._findOne(id, params, result => {
         if (!result.success)
           return reject(result.err)
@@ -139,7 +138,7 @@ class DabRedis extends Dab {
     [params] = this.sanitize(params)
     this.setClient(params)
     return new Promise((resolve, reject) => {
-      const key = (params.type || this.options.type) + ':' + id
+      const key = (params.ns || this.options.ns) + ':' + id
       this._findOne(id, params, result => {
         if (!result.success)
           return reject(result.err)

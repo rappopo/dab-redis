@@ -1,5 +1,39 @@
 # @rappopo/dab-redis
 
+A [Rappopo DAB](https://github.com/rappopo/dab) implementation for [Redis](https://redis.io). 
+
+## Installation
+
+Simply invoke this command in your project folder:
+
+```
+$ npm install --save @rappopo/dab-redis
+```
+
+And within your script:
+
+```javascript
+const DabRedis = require('@rappopo/dab-redis')
+const dab = new DabRedis({
+  url: 'redis://myhost:6379',
+  ns: 'docs'
+})
+...
+dab.findOne('my-doc').then(function(doc) { ... })
+```
+
+## Options
+
+`url`: your Redis url endpoint. If it not provided, it defauts to: *redis://localhost:6379*
+
+`ns`: your namespace. You'll most likely want to give a custom name, otherwise it defaults to *doc*
+
+## Misc
+
+* [Methods](https://github.com/rappopo/dab)
+* [ChangeLog](CHANGELOG.md)
+* Donation: Bitcoin **16HVCkdaNMvw3YdBYGHbtt3K5bmpRmH74Y**
+
 ## License
 
 (The MIT License)

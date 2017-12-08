@@ -17,7 +17,7 @@ describe('setOptions', function () {
       idSrc: '_id',
       idDest: '_id',
       url: 'redis://localhost:6379',
-      type: 'test'
+      ns: 'doc'
     })
   })
 
@@ -39,12 +39,12 @@ describe('setOptions', function () {
     })
   })
 
-  it('should return options with custom type', function () {
+  it('should return options with custom ns', function () {
     const cls = new Cls({ 
-      type: 'mytype'
+      ns: 'myns'
     })
     expect(cls.options).to.include({
-      type: 'mytype'
+      ns: 'myns'
     })
   })
 

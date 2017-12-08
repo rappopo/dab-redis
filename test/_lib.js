@@ -23,7 +23,7 @@ module.exports = {
   _: _,
   options: {
     url: 'redis://localhost:6379',
-    type: 'test'
+    ns: 'test'
   },
   dummyData: [
     { _id: 'jack-bauer', name: 'Jack Bauer' },
@@ -35,7 +35,7 @@ module.exports = {
     client.flushdb(err => {
       if (err) return callback(err)
       async.mapSeries(this.dummyData, (item, done) => {
-        let key = this.options.type + ':' + item._id,
+        let key = this.options.ns + ':' + item._id,
           body = _.omit(item, ['_id'])
         client.hmset(key, body, err => {
           addIndex(client, body, key, err => {
