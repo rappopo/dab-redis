@@ -28,6 +28,19 @@ dab.findOne('my-doc').then(function(doc) { ... })
 
 `ns`: your namespace. You'll most likely want to give a custom name, otherwise it defaults to *doc*
 
+## Features
+
+* [ ] [find](https://github.com/rappopo/dab/blob/master/doc/FIND.md)
+* [x] [findOne](https://github.com/rappopo/dab/blob/master/doc/FINDONE.md)
+* [x] [create](https://github.com/rappopo/dab/blob/master/doc/CREATE.md)
+* [x] [update](https://github.com/rappopo/dab/blob/master/doc/UPDATE.md)
+* [x] [remove](https://github.com/rappopo/dab/blob/master/doc/REMOVE.md)
+* [x] [bulkCreate](https://github.com/rappopo/dab/blob/master/doc/BULKCREATE.md)
+* [x] [bulkUpdate](https://github.com/rappopo/dab/blob/master/doc/BULKUPDATE.md)
+* [x] [bulkDelete](https://github.com/rappopo/dab/blob/master/doc/BULKDELETE.md)
+* [ ] [copyFrom](https://github.com/rappopo/dab/blob/master/doc/COPYFROM.md)
+* [ ] [copyTo](https://github.com/rappopo/dab/blob/master/doc/COPYTO.md)
+
 ## Misc
 
 * [Methods](https://github.com/rappopo/dab)

@@ -29,6 +29,11 @@ module.exports = {
     { _id: 'jack-bauer', name: 'Jack Bauer' },
     { _id: 'james-bond', name: 'James Bond' }
   ],
+  bulkDocs: [
+    { _id: 'jack-bauer', name: 'Jack Bauer' },
+    { _id: 'johnny-english', name: 'Johnny English' },
+    { name: 'Jane Boo' }
+  ],
   timeout: 5000,
   resetDb: function (callback) {
     const client = redis.createClient(this.options)
@@ -36,7 +41,7 @@ module.exports = {
       if (err) return callback(err)
       async.mapSeries(this.dummyData, (item, done) => {
         let key = this.options.ns + ':' + item._id,
-          body = _.omit(item, ['_id'])
+          body = _.omit(item, [])
         client.hmset(key, body, err => {
           addIndex(client, body, key, err => {
             done(err)

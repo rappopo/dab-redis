@@ -1,7 +1,7 @@
 {
   "name": "@rappopo/dab-redis",
-  "version": "0.0.1",
-  "description": "A Redis data access layer that is bloated!",
+  "version": "0.0.3",
+  "description": "A Redis data access layer that'll pissed you off!",
   "main": "index.js",
   "scripts": {
     "test": "mocha --exit"
@@ -14,10 +14,14 @@
     "access",
     "dal"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rappopo/dab-redis.git"
+  },
   "author": "Ardhi Lukianto <ardhi@lukianto.com>",
   "license": "MIT",
   "dependencies": {
-    "@rappopo/dab": "0.0.5",
+    "@rappopo/dab": "0.0.6",
     "async": "^2.6.0",
     "redis": "^2.8.0"
   },

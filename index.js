@@ -153,6 +153,117 @@ class DabRedis extends Dab {
       })
     })
   }
+
+  _getGood (body, inverted = false, params = {}, callback) {
+    let good = [], status = []
+
+    async.mapSeries(body, (b, callb) => {
+      [b] = this.delFakeGetReal(b)
+      const id = b[this.options.idDest] ? b[this.options.idDest] : this.uuid(),
+        key = (params.ns || this.options.ns) + ':' + id
+      let stat = {}
+      stat[this.options.idDest] = id
+      this._findOne(id, params, result => {
+        let op = (inverted && !result.success) || (!inverted && result.success)
+        if (op)
+          good.push(this._.merge(b, { _id: id }))
+        stat.success = op
+        if (!stat.success)
+          stat.message = inverted ? 'Exists' : 'Not found'
+        status.push(stat)
+        callb()
+      })
+    }, err => {
+      callback(good, status)
+    })
+  }
+
+  bulkCreate (body, params) {
+    [params] = this.sanitize(params)
+    this.setClient(params)
+    return new Promise((resolve, reject) => {
+      if (!this._.isArray(body))
+        return reject(new Error('Require array'))
+      this._getGood(body, true, params, (good, status) => {
+        async.mapSeries(good, (g, callb) => {
+          this.create(this._.omit(g, ['_id']), params).asCallback(callb)
+        }, (err, results) => {
+          let result = {
+            success: true,
+            stat: {
+              ok: good.length,
+              fail: body.length - good.length,
+              total: body.length
+            }
+          }
+          if (params.withDetail)
+            result.detail = status
+          resolve(result)          
+        })
+      })
+    })
+  }
+
+  bulkUpdate (body, params) {
+    [params] = this.sanitize(params)
+    this.setClient(params)
+    return new Promise((resolve, reject) => {
+      if (!this._.isArray(body))
+        return reject(new Error('Require array'))
+      this._getGood(body, false, params, (good, status) => {
+        async.mapSeries(good, (g, callb) => {
+          this.update(g._id, this._.omit(g, ['_id']), params).asCallback(callb)
+        }, (err, results) => {
+          let result = {
+            success: true,
+            stat: {
+              ok: good.length,
+              fail: body.length - good.length,
+              total: body.length
+            }
+          }
+          if (params.withDetail)
+            result.detail = status
+          resolve(result)          
+        })
+      })
+    })
+  }
+
+  bulkRemove (body, params) {
+    [params] = this.sanitize(params)
+    this.setClient(params)
+    return new Promise((resolve, reject) => {
+      if (!this._.isArray(body))
+        return reject(new Error('Require array'))
+
+      this._.each(body, (b, i) => {
+        let kv = {}
+        kv[this.options.idSrc] = b 
+        body[i] = kv
+      })
+
+      this._getGood(body, false, params, (good, status) => {
+        async.mapSeries(good, (g, callb) => {
+          this.remove(g._id, params).asCallback(callb)
+        }, (err, results) => {
+          let result = {
+            success: true,
+            stat: {
+              ok: good.length,
+              fail: body.length - good.length,
+              total: body.length
+            }
+          }
+          if (params.withDetail)
+            result.detail = status
+          resolve(result)          
+        })
+      })
+    })
+  }
+
+
 }
 
 module.exports = DabRedis
