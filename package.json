@@ -1,6 +1,6 @@
 {
   "name": "@rappopo/dab-redis",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Redis data access layer that'll pissed you off!",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "author": "Ardhi Lukianto <ardhi@lukianto.com>",
   "license": "MIT",
   "dependencies": {
-    "@rappopo/dab": "0.0.6",
+    "@rappopo/dab": "0.0.8",
     "async": "^2.6.0",
     "redis": "^2.8.0"
   },

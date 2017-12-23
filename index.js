@@ -11,8 +11,6 @@ class DabRedis extends Dab {
 
   setOptions (options) {
     super.setOptions(this._.merge(this.options, {
-      idSrc: '_id',
-      idDest: options.idDest || options.idSrc || '_id',
       url: options.url || 'redis://localhost:6379',
       ns: options.ns || 'doc'
     }))
@@ -91,7 +89,7 @@ class DabRedis extends Dab {
     [params, body] = this.sanitize(params, body)
     this.setClient(params)
     return new Promise((resolve, reject) => {
-      const id = body[this.options.idDest] ? body[this.options.idDest] : this.uuid(),
+      const id = body._id ? body._id : this.uuid(),
         key = (params.ns || this.options.ns) + ':' + id
       this._findOne(id, params, result => {
         if (result.success && !params.upsert)
@@ -114,7 +112,7 @@ class DabRedis extends Dab {
   update (id, body, params) {
     [params, body] = this.sanitize(params, body)
     this.setClient(params)
-    body = this._.omit(body, [this.options.idDest])
+    body = this._.omit(body, ['_id'])
     return new Promise((resolve, reject) => {
       const key = (params.ns || this.options.ns) + ':' + id
       this._findOne(id, params, result => {
@@ -159,10 +157,10 @@ class DabRedis extends Dab {
 
     async.mapSeries(body, (b, callb) => {
       [b] = this.delFakeGetReal(b)
-      const id = b[this.options.idDest] ? b[this.options.idDest] : this.uuid(),
+      const id = b._id ? b._id : this.uuid(),
         key = (params.ns || this.options.ns) + ':' + id
       let stat = {}
-      stat[this.options.idDest] = id
+      stat._id = id
       this._findOne(id, params, result => {
         let op = (inverted && !result.success) || (!inverted && result.success)
         if (op)
@@ -238,9 +236,7 @@ class DabRedis extends Dab {
         return reject(new Error('Require array'))
 
       this._.each(body, (b, i) => {
-        let kv = {}
-        kv[this.options.idSrc] = b 
-        body[i] = kv
+        body[i] = { _id: b }
       })
 
       this._getGood(body, false, params, (good, status) => {

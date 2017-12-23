@@ -30,20 +30,19 @@ dab.findOne('my-doc').then(function(doc) { ... })
 
 ## Features
 
-* [ ] [find](https://github.com/rappopo/dab/blob/master/doc/FIND.md)
-* [x] [findOne](https://github.com/rappopo/dab/blob/master/doc/FINDONE.md)
-* [x] [create](https://github.com/rappopo/dab/blob/master/doc/CREATE.md)
-* [x] [update](https://github.com/rappopo/dab/blob/master/doc/UPDATE.md)
-* [x] [remove](https://github.com/rappopo/dab/blob/master/doc/REMOVE.md)
-* [x] [bulkCreate](https://github.com/rappopo/dab/blob/master/doc/BULKCREATE.md)
-* [x] [bulkUpdate](https://github.com/rappopo/dab/blob/master/doc/BULKUPDATE.md)
-* [x] [bulkDelete](https://github.com/rappopo/dab/blob/master/doc/BULKDELETE.md)
-* [ ] [copyFrom](https://github.com/rappopo/dab/blob/master/doc/COPYFROM.md)
-* [ ] [copyTo](https://github.com/rappopo/dab/blob/master/doc/COPYTO.md)
+* [ ] [find](https://docs.rappopo.com/dab/method/find/)
+* [x] [findOne](https://docs.rappopo.com/dab/method/find-one/)
+* [x] [create](https://docs.rappopo.com/dab/method/create/)
+* [x] [update](https://docs.rappopo.com/dab/method/update/)
+* [x] [remove](https://docs.rappopo.com/dab/method/remove/)
+* [x] [bulkCreate](https://docs.rappopo.com/dab/method/bulk-create/)
+* [x] [bulkUpdate](https://docs.rappopo.com/dab/method/bulk-update/)
+* [x] [bulkRemove](https://docs.rappopo.com/dab/method/bulk-remove/)
+* [ ] [copyFrom](https://docs.rappopo.com/dab/method/copy-from/)
+* [ ] [copyTo](https://docs.rappopo.com/dab/method/copy-to/)
 
 ## Misc
 
-* [Methods](https://github.com/rappopo/dab)
 * [ChangeLog](CHANGELOG.md)
 * Donation: Bitcoin **16HVCkdaNMvw3YdBYGHbtt3K5bmpRmH74Y**
 
